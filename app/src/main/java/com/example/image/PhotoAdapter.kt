@@ -34,9 +34,9 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
         private val binding: ItemPhotoBinding
     ): RecyclerView.ViewHolder(binding.root){
         fun bind(photo: PhotoResponse){
-            val dimensionRatio = photo.height / photo.width.toFloat()
+            val dimensionRatio = photo.height / photo.width.toFloat() // 가로세로 비율
             val targetWidth = binding.root.resources.displayMetrics.widthPixels -
-                    (binding.root.paddingStart + binding.root.paddingEnd)
+                    (binding.root.paddingStart + binding.root.paddingEnd) // 사진의 가로 크기에 양옆 패딩값만큼 빼기
             val targetHeight = (targetWidth * dimensionRatio).toInt() // 각 사진의 크기를 가져와 썸네일 크기 설정
 
             binding.contentsContainer.layoutParams =
