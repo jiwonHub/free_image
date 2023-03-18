@@ -13,6 +13,8 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
 
     var photos: List<PhotoResponse> = emptyList()
 
+    var onClickPhoto: (PhotoResponse) -> Unit = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(
             ItemPhotoBinding.inflate(
@@ -33,6 +35,13 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
     inner class ViewHolder(
         private val binding: ItemPhotoBinding
     ): RecyclerView.ViewHolder(binding.root){
+
+        init{
+            binding.root.setOnClickListener {
+                onClickPhoto(photos[adapterPosition]) // 아이템을 클릭하면 adapterPosition(현재 아이템 인덱스)를 전달
+            }
+        }
+
         fun bind(photo: PhotoResponse){
             val dimensionRatio = photo.height / photo.width.toFloat() // 가로세로 비율
             val targetWidth = binding.root.resources.displayMetrics.widthPixels -
